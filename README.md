@@ -1,54 +1,97 @@
-# React + TypeScript + Vite
+# 🧩 UI Primitives Hub CLI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A CLI tool for generating UI components from your project on [UI Primitives Hub](https://your-url.dev).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Installation
 
-## Expanding the ESLint configuration
+Install (recommended):
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npx @milancu/ui-primitives-hub
+# or
+pnpm dlx @milancu/ui-primitives-hub
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Initialize Project
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npx ui-primitives-hub init
 ```
+
+Interactive setup will configure:
+
+- Project ID
+- Output directory for components (e.g., `src/components`)
+- Package manager (`pnpm`, `npm`, `yarn`)
+
+Optional flags:
+
+```
+-p, --project <id>         Set Project ID
+-o, --output <path>        Output directory (default: src/components)
+--package-manager <name>   Set package manager
+-t, --token <token>        Provide token manually
+```
+
+---
+
+## ➕ Add a Component
+
+```bash
+ui-primitives-hub add -c accordion
+```
+
+Generates the `accordion` component into your configured output directory.
+
+Automatically handles:
+
+- Fetching component code from the API
+- Creating the `<Component>.tsx` file
+- Creating a utility file (`src/lib/utils.ts`) if missing
+- Installing required dependencies (if not installed):
+    - `@base-ui-components/react`
+    - `clsx`
+    - `tailwind-merge`
+
+Optional:
+
+```
+-f, --force    Overwrite existing file without prompt
+```
+
+---
+
+## 🛠️ Config File
+
+After initialization, config is saved at:
+
+```
+~/.ui-primitives-hub/config.json
+```
+
+Contains:
+
+- `projectId`
+- `outputDir`
+- `token`
+- `packageManager`
+
+---
+
+## 🧪 Quick Start
+
+```bash
+pnpm dlx @milancu/ui-primitives-hub init
+pnpm dlx @milancu/ui-primitives-hub add -c Accordion
+```
+
+---
+
+## 🧑‍💻 Author
+
+Built with ❤️ by [@milancu](https://github.com/milancu) 🚀
+
